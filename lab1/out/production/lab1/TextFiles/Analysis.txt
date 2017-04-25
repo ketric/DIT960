@@ -1,0 +1,38 @@
+- Is there a size cutoff at which a different algorithm becomes best?
+For small arrays insertion sort seems to perform better regardless of the
+data itself. In regards to just size, with no concern of the type of data,
+insertion sort should be preferred for small arrays.
+(When the size grows large the type of data becomes relevant, see next point.)
+
+- How does the type of test data affect which algorithm you should choose?
+When the data is already sorted insertion sort should be used for all tested
+sizes. This includes a single element or two being off. However, even at 95%
+sorted and big sizes we're seeing insertion sort fall off. At this point merge
+sort perform best. When the data is random/arbitrary (and the array is big)
+quicksort wins out.
+
+In summary:
+Essentially sorted:    insertion sort
+Close to sorted (95%): insertion sort (for small-medium size; <10k)
+                       merge sort  (for bigger size; >10k)
+Random:                quick sort
+
+- Which should you choose if you don�t know anything about the test data?
+If we're naively picking pivot as we are in the lab, and not doing anything
+to prevent stack overflow, then quick sort is practically useless. If however
+we were to pick a smarter pivot (like median of 3), fallback to insertion sort
+for small cases and preventing going too deep into the stack then quick sort
+seems to be a solid choice for cases where we don't know about the data.
+
+If however trying to fulfill all of that is something we do not wish to bother
+with then merge sort seems like a good all around sorter with less failure
+potential.
+
+- Are there circumstances when you should definitely avoid a certain algorithm?
+If we select pivot as the first element, and we're dealing with almost sorted
+data, then quick sort should for sure be avoided as it has the potential to
+kill our program if care is not taken.
+
+When we're dealing with very large data of any setup except essentially sorted
+then we should avoid insertion sort as O(n2) does not let us sort very large
+data sets given real-life time constraints.
