@@ -1,0 +1,156 @@
+
+Quicksort (picking the first element as the pivot):
+All elements to the "right" of pivot must be greater than pivot
+All elements to the "left" of pivot must be smaller than pivot
+
+ 0 1 2 3 4 5 6 7 8 9 - Index, 9 Is out of bounds
+|4 6 8 2 9 5 1 7 3
+ ^left           ^right
+pivot = 4, right = 3 is pivot < right? No, so we swap them and move pivot to the right
+3 6 8 2 9 5 1 7 |4
+^                ^
+Pivot = 4, left = 3 is pivot > left? Yes, so we move left one position towards right
+3 6 8 2 9 5 1 7 |4
+  ^              ^
+Pivot = 4, left = 6, is pivot > left? No, so we swap them and move pivot to the left
+3 |4 8 2 9 5 1 7 6  -  Start from right and move left
+   ^             ^
+Pivot = 4, right = 6, is pivot < right? Yes, so we move right, left one position
+3 |4 8 2 9 5 1 7 6
+   ^           ^
+Pivot = 4, right = 7, is pivot < right? Yes, so we move right, left one position
+3 |4 8 2 9 5 1 7 6
+   ^         ^
+Pivot = 4, right = 1, is pivot < right? No, so we swap them
+3 1 8 2 9 5 |4 7 6  - start from left move right
+  ^          ^
+Pivot = 4, left = 1, is pivot > left? Yes, so we move left towards right one position
+3 1 8 2 9 5 |4 7 6
+    ^        ^
+Pivot = 4, left = 8, is pivot > left? No, So we swap them and move pivot to the left
+3 1 |4 2 9 5 8 7 6  -  Start from right and move left
+     ^           ^
+Pivot = 4, right = 7, is pivot < right? Yes, so we move right, left one position
+3 1 |4 2 9 5 8 7 6
+     ^         ^
+Pivot = 4, right = 8, is pivot < right? Yes, so we move right, left one position
+3 1 |4 2 9 5 8 7 6
+     ^       ^
+Pivot = 4, right = 5, is pivot < right? Yes, so we move right, left one position
+3 1 |4 2 9 5 8 7 6
+     ^     ^
+Pivot = 4, right = 9, is pivot < right? Yes, so we move right, left one position
+3 1 |4 2 9 5 8 7 6
+     ^   ^
+Pivot = 4, right = 2, is pivot < right? No, so we swap them
+3 1 |4 2 9 5 8 7 6  -  start from right move left
+     ^ ^
+Pivot = 4, left = 1, is pivot > left? Yes, so we move left towards right one position
+3 1 2 |4 9 5 8 7 6
+  ^    ^
+Pivot = 4, left = 2, is pivot > left? Yes, so we move left towards right one position
+3 1 2 |4 9 5 8 7 6
+    ^  ^
+Pivot = 4, left = 4, Now left and right are at pivot, Elements left of pivot are smaller and elements right of pivot are greater
+3 1 2 |4 9 5 8 7 6
+       ^
+So pivot divides the array into two sub arrays
+3 1 2 - 4 - 9 5 8 7 6
+ Left           Right
+ Array          Array
+
+Now quicksort the left array
+
+Pivot = 3, right = 2, is pivot < right? no, so we swap them
+|3 1 2  - start from right move left
+     ^
+Pivot = 3, left = 1, is pivot > left? Yes, so we move left towards right one position
+2 1 |3
+  ^
+Pivot = 3, left = 3, now left and right are at pivot, Elements left of pivot are smaller and elements right of pivot are greater
+2 1 |3
+     ^
+So pivot divides the array into two sub arrays
+2 1 - |3 - |4 - 9 5 8 7 6
+LEFT                RIGHT
+Array               ARRAY
+Now quicksort the left array
+
+Pivot = 2, right = 1, is pivot < right? No, so we swap them
+|2 1
+   ^
+Pivot = 2, left = 1, is pivot > left? Yes so we move left one step towards right. Now left and right is at the pivot
+1 |2
+^
+|1 - |2 - |3 - |4 - 9 5 8 7 6
+
+4 Was our first pivot now we quicksort the right sub array
+
+Pivot = 9, right = 6, is pivot < right? No, so we swap them.
+|9 5 8 7 6  -  start from left and move right
+         ^
+Pivot = 9, left = 5, is pivot > left? Yes, move right
+6 5 8 7 |9
+  ^
+Pivot = 9, left = 8, is pivot > left? Yes, move right
+6 5 8 7 |9
+    ^
+Pivot = 9, left = 7, is pivot > left? Yes, move right
+6 5 8 7 |9
+      ^
+Pivot = 9, left = 9, right and left are at pivot now.
+6 5 8 7 |9
+      ^
+
+|1 - |2 - |3 - |4 - 6 5 8 7 - |9
+                      LEFT
+Now quicksort the left sub array.
+
+Pivot = 6, right = 7, is pivot < right? Yes, move left
+|6 5 8 7
+       ^
+Pivot = 6, right = 7, is pivot < right? Yes, move left
+|6 5 8 7
+     ^
+Pivot = 6, right = 8, is pivot < right? Yes, move left
+|6 5 8 7
+   ^
+Pivot = 6, right = 5, is pivot < right? No, swap them
+|6 5 8 7 - - start from right move left
+   ^
+Pivot = 6, left = 6, left and right are at the pivot now.
+5 |6 8 7
+   ^
+|1 - |2 - |3 - |4 - |5 - |6 - 8 7 - |9
+                              LEFT
+Now quicksort the left sub array.
+
+Pivot = 8, right = 7, is pivot < right? no, swap them
+|8 7  -  start from right move left
+   ^
+Pivot 8, left = 7, is pivot > left? yes, move right
+7 |8
+^
+pivot = 8, left = 8, left and right at pivot now.
+7 |8
+   ^
+|1 - |2 - |3 - |4 - |5 - |6 - 7 - |8 - |9   -> 7 to sort
+
+7 is the pivot and therefore it is in its sorted position
+
+|1 - |2 - |3 - |4 - |5 - |6 - |7 - |8 - |9
+
+Teachers solution =>
+ 4 6 8 2 9 5 1 7 3
+ 4|6 8 2 9 5 1 7 3|
+ 4 3|8 2 9 5 1|7 6
+ 4 3 1 2|9 5 8 7 6
+ 2|3 1|   4   9|5 8 7 6|
+ 2 1|3   4   9 5 8 7 6|
+ 1   2   3   4   6|5 8 7|   9
+ 1   2   3   4   6 5|8 7    9
+ 1   2   3   4   5   6   8 7    9
+ 1   2   3   4   5   6   7   8   9
+======================================================================================================
+Quicksort (using the median-of-three pivot):
+

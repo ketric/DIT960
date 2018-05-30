@@ -1,0 +1,58 @@
+module SkewHeap where
+
+-- |A SkewHeap implementation with the min heap property.
+-- Useful for priority queues.
+data SkewHeap s = Null | Node s (SkewHeap s) (SkewHeap s)
+  deriving (Show,Eq)
+
+-- |Merge two SkewHeaps.
+-- Complexity: O(log n)  
+merge :: Ord o => SkewHeap o -> SkewHeap o -> SkewHeap o
+merge left Null = left
+merge Null right = right
+merge a@(Node a_value a_left a_right) b@(Node b_value b_left b_right)
+  | a_value <= b_value = Node a_value (merge a_right b) a_left
+  | otherwise          = Node b_value (merge b_right a) b_left
+
+-- |Insert a value into a SkewHeap.
+-- Complexity: O(log n)
+insert :: Ord o => o -> SkewHeap o -> SkewHeap o
+insert value heap = merge (Node value Null Null) heap
+
+-- |Remove and return the minimum value from a heap.
+-- Complexity: O(log n)
+deleteMin :: Ord o => SkewHeap o -> Maybe (o, SkewHeap o)
+deleteMin Null = Nothing
+deleteMin (Node min left right) =  Just (min, merge left right)
+
+-- |Remove element by value regardless of location.
+-- Complexity: O(n log n)
+delete :: Ord o => o  -> SkewHeap o -> SkewHeap o
+delete _ Null = Null
+delete value (Node root left right)
+    | value == root = merge left right
+    | otherwise     = Node root (delete value left) (delete value right)
+
+-- |Update a value by replacing it with a new one
+-- Complexity: O(n log n)		
+update :: Ord o => o -> o -> SkewHeap o -> SkewHeap o
+update old new heap = insert new (delete old heap)
+
+-- |Return a comma separated string of the SkewHeap
+-- Complexity: O(n)
+commaSeparatedStr :: (Show a) => SkewHeap a -> String
+commaSeparatedStr Null                  = ""
+commaSeparatedStr (Node val left right) =
+    show val ++ ", " ++ commaSeparatedStr left ++ commaSeparatedStr right
+
+-- |Returns root of heap.
+-- Complexity: O(1)
+root :: SkewHeap o -> o
+root Null = undefined
+root (Node value _ _) = value
+
+
+--test
+a = Node 18 (Node 20 (Node 37 Null Null) Null)  (Node 28 Null (Node 32 Null Null))
+b = Node 29 (Node 39 Null (Node 89 Null Null))  (Node 66 Null Null)
+

@@ -1,0 +1,38 @@
+1. Arrange the following functions in order of complexity:
+n^4, log n, n log n, 4n, 3n^3, 5n^2+n.
+
+Answer: log n, 4n, n log n, 5n^2 + n, 3n^3, n^4
+
+3. Here are the growth rates of several algorithms. Which will run in a reasonable amount of time when n=50?
+   10 ∗ 2^50         = 11258999068426240 * 10^-6 = 1125899068 * 0.016666667 = 187649988 * 0.166666667 = 3127499 * 0.0416666667 = 130312 * 0.00273790926 = 357~ years | unreasonable
+
+   10000 ∗ log2 50   = 56400 * 10^-6, < 1 second | reasonable
+   100000 ∗ 50       = 5000000 * 10^-6 = 5seconds | reasonable
+   10 ∗ 50!          = 3.0414093e+65 | unreasonable
+
+4. Write the following functions in Big-O notation:
+
+34x + x^2 = O(34x + x^2) -> O(x) + O(x^2) -> O(x^2)
+
+1x+2x+3x+4x+5x+6x+7x = O(x)
+
+10^4000x+0.005x^2+103/x^3 = O(10^4000x)+O(0.005x^2)+O(103/x^3) ->
+-> O(x) + O(x^2) + O(x^2) -> O(x^2)
+
+10*log2*x+2*log10*x = O(log x)
+
+2^x+10^x = O(10^x)
+
+(x–2)(x–1)* x = (x^2-x-2x+2)* x -> x^3-x^2-2x^2+2x -> O(x^3)
+
+Alternative solution:
+O((x−2)(x−1)x)= O(x−2)*O(x−1)*O(x) ->
+-> O(x)*O(x)*O(x)-> O(x*x*x)-> O(x^3)
+
+5. What is the complexity of adding a single element to an ArrayList? What is the complexity of adding n elements?
+
+Answer: O(n)
+
+6. Suppose we want to be able to delete elements from a dynamic array. If we want to delete an arbitrary element, what is the complexity? What if we are allowed to change the order of the elements in the array?
+
+Answer: O(n), if we can sort the elements then O(1)
